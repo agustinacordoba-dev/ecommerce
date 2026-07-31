@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DH Import</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ecommerce/public/css/style.css">
+</head>
+<body>
+{{> header }}
+
+<div class="chevron-strip"></div>
+
+<section class="catalog-hero">
+    <div class="container">
+        <h1>Catálogo completo</h1>
+        <p>Productos importados. Busca por nombre, categoría o codigo y encontrá lo que buscás.</p>
+    </div>
+
+    <div class="search-wrapper">
+        <div class="search-bar">
+            <!-- Icono SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+
+            <!-- Input -->
+            <input type="text" placeholder="Buscar por nombre, categoría o código..." aria-label="Buscar productos"/>
+        </div>
+    </div>
+</section>
+
+<main class="container catalog-section" id="ofertas">
+
+    <div class="section-heading">
+        <h2>Todos los productos</h2>
+    </div>
+
+    <div class="product-grid">
+
+        {{#productos}}
+            <article class="product-card">
+                <a href="/producto/detalle?id={{id}}" class="product-thumb">
+                {{#foto}}
+                    <img src="/{{foto}}" alt="{{nombre}}" class="product-img" />
+                {{/foto}}
+                {{^foto}}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
+                        <rect x="4" y="4" width="16" height="12" rx="1"/>
+                        <path d="M8 20h8M12 16v4"/>
+                    </svg>
+                {{/foto}}
+                </a>
+
+                <div class="product-info">
+                    <span class="product-code">{{codigo}}</span>
+                    <a href="/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
+                    <span class="product-category">{{categoria}}</span>
+
+                    <div class="product-footer-row">
+                        <span class="product-price">${{precio}}</span>
+                        <button class="add-btn" aria-label="Agregar al carrito">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"/>
+                                <circle cx="19" cy="21" r="1"/>
+                                <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </article>
+        {{/productos}}
+
+        {{^productos}}
+            <div class="no-products">
+                <p>No se encontraron productos disponibles por el momento.</p>
+            </div>
+        {{/productos}}
+
+    </div>
+</main>
+
+{{> footer }}
+</body>
+</html>

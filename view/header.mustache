@@ -1,0 +1,38 @@
+<header class="site-header">
+    <div class="nav-row">
+        <a href="index.html" class="brand">
+            <span class="brand-name">DH <span>IMPORT</span></span>
+        </a>
+
+        <ul class="main-nav">
+            <li class="has-dropdown">
+                <button class="nav-link" aria-expanded="false" aria-haspopup="true">
+                    Categorías
+                </button>
+                <div class="dropdown-panel">
+                    {{#categorias}}
+                        <a href="/productos?categoria={{id}}">
+                        <span class="cat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="8"/>
+                            </svg>
+                        </span>
+                        {{nombre}}
+                        </a>
+                    {{/categorias}}
+
+                    {{^categorias}}
+                        <span class="dropdown-item-empty">No hay categorías disponibles</span>
+                    {{/categorias}}
+                </div>
+            </li>
+            <li><a href="#" class="nav-link">Mis compras</a></li>
+            <li><a href="#ofertas" class="nav-link">Ofertas</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="#" class="btn btn-ghost">Ingresar</a>
+            <a href="#" class="btn btn-accent">Crear cuenta</a>
+        </div>
+    </div>
+</header>

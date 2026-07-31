@@ -1,0 +1,15 @@
+:root {
+    --navy: #021d40;
+    --blue: #164773;
+    --slate: #58748c;
+    --light: #f2f2f2;
+    --gray: #d9d9d9;
+    --white: #ffffff;
+
+    --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+    --font-body: "Inter", "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "Courier New", monospace;
+
+    --radius: 10px;
+    --container: 1240px;
+}
