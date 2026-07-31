@@ -45,6 +45,17 @@ class ProductoController
 
     }
 
+    public function detalle()
+    {
+        $id = $this->request->get("id");
+        $resultado = $this->productoModel->buscarPorId($id);
+        $categorias = $this->categoriaModel->obtenerCategorias();
+        $producto = !empty($resultado) ? $resultado[0] : null;
+
+        $this->renderer->render("detalle", ["producto" => $producto, "categorias" => $categorias]);
+    }
+
+// funciones privadas
     private function procesarImagen()
     {
         $nombre   = $_FILES['foto']['name'];

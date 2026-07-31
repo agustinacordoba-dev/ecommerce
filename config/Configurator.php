@@ -19,6 +19,11 @@ class Configurator
         return new HomeController(new Request(), $this->getRenderer(), $this->getProductoModel(), $this->getCategoriaModel());
     }
 
+    public function getProductoController()
+    {
+        return new ProductoController(new Request(), $this->getRenderer(), $this->getProductoModel(), $this->getCategoriaModel());
+    }
+
     public function getRouter()
     {
         return new Router($this, 'home', 'index');

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DH IMPORT - Producto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ecommerce/public/css/style.css">
+    <link rel="stylesheet" href="/ecommerce/public/css/detalle.css">
+    <!-- Iconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+{{> header }}
+
+<!-- Contenedor Principal -->
+<main class="main-content">
+    <section class="product-detail-card">
+
+        <!-- Imagen del Producto -->
+        <div class="product-image-container">
+            <img src="/ecommerce/{{producto.foto}}" alt="{{producto.nombre}}">
+        </div>
+
+        <!-- Información del Producto -->
+        <div class="product-info">
+
+            <!-- Categoría y Código -->
+            <div class="product-meta">
+                <span class="product-category">{{producto.categoria}}</span>
+                <span class="product-code">CÓD: {{producto.codigo}}</span>
+            </div>
+
+            <!-- Nombre -->
+            <h1 class="product-title">{{producto.nombre}}</h1>
+
+            <!-- Precio -->
+            <div class="product-price">${{producto.precio}}</div>
+
+            <!-- Descripción -->
+            <p class="product-description">{{producto.descripcion}}</p>
+
+            <!-- Formulario de Compra (Redirige al checkout / pago) -->
+            <form action="/checkout/pagar" method="POST" class="purchase-form">
+                <input type="hidden" name="productoId" value="{{producto.id}}">
+
+                <!-- Entrada manual de cantidad -->
+                <div class="quantity-selector">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="input-quantity" required>
+                </div>
+
+                <!-- Botón Directo a Pagar -->
+                <button type="submit" class="btn btn-primary btn-buy-now">
+                    <i data-lucide="credit-card"></i> Comprar ahora
+                </button>
+            </form>
+
+            <!-- Leyenda de Envíos -->
+            <div class="shipping-info">
+                <i data-lucide="truck"></i>
+                <span>Envíos a todo el país</span>
+            </div>
+
+        </div>
+    </section>
+</main>
+{{>footer}}
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

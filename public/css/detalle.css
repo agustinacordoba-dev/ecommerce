@@ -1,0 +1,224 @@
+@import url('paleta-colores.css');
+
+/* ==========================================================================
+   Estilos para el Detalle de Producto
+   ========================================================================== */
+
+/* Layout Principal */
+.product-detail-container {
+    max-width: var(--container);
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    font-family: var(--font-body);
+}
+
+.product-detail-card {
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem;
+    align-items: start;
+}
+
+/* Imagen del Producto */
+.product-image-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: var(--light);
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Contenedor de la Imagen */
+.product-image-container {
+    width: 100%;
+    max-height: 420px;            /* Limita el alto máximo para que no sea gigante */
+    aspect-ratio: 1 / 1;          /* Mantiene proporción cuadrada */
+    background-color: var(--light); /* Fondo claro sutil detrás de la foto */
+    border: 1px solid var(--gray); /* Borde delimitador */
+    border-radius: var(--radius); /* Bordes redondeados integrados */
+    padding: 1rem;                 /* Espacio interno para que la foto no toque el borde */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;             /* Asegura que nada sobresalga */
+}
+
+/* Regla indispensable para la imagen dentro del contenedor */
+.product-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;          /* Escala la imagen para que encaje completa sin recortarse */
+    border-radius: calc(var(--radius) / 2);
+}
+
+/* Caja de Información */
+.product-info-box {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Categoría y Código */
+.product-header-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.product-category {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-code {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--slate);
+    background-color: var(--light);
+    border: 1px solid var(--gray);
+    padding: 0.2rem 0.5rem;
+    border-radius: calc(var(--radius) / 2);
+}
+
+/* Nombre del Producto */
+.product-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+
+/* Precio */
+.product-price {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1.25rem;
+}
+
+/* Descripción */
+.product-description {
+    font-size: 0.95rem;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-top: 1px solid var(--gray);
+    border-bottom: 1px solid var(--gray);
+}
+
+/* Formulario de Compra */
+.purchase-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.quantity-wrapper label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--navy);
+}
+
+/* Input manual de cantidad */
+.input-quantity {
+    width: 90px;
+    padding: 0.6rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--navy);
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: calc(var(--radius) / 2);
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-quantity:focus {
+    border-color: var(--blue);
+}
+
+/* Botón Comprar */
+.btn-buy-now {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    background-color: var(--blue);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-buy-now:hover {
+    background-color: var(--navy);
+}
+
+.btn-buy-now:active {
+    transform: scale(0.99);
+}
+
+/* Leyenda Envíos */
+.shipping-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background-color: var(--light);
+    border: 1px solid var(--gray);
+    border-radius: var(--radius);
+    color: var(--slate);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.shipping-banner svg {
+    color: var(--blue);
+    flex-shrink: 0;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .product-detail-card {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+}
+

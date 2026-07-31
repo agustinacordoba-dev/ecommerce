@@ -10,6 +10,13 @@ body {
     background: var(--light);
     color: var(--navy);
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main, .product-detail-container {
+    flex: 1;
 }
 
 /*buscador*/
@@ -547,6 +554,7 @@ button {
     background: var(--navy);
     color: var(--gray);
     padding: 52px 0 0;
+    margin-top: auto; /* 👈 Esto empuja el footer hasta el fondo de la pantalla */
 }
 
 .footer-grid {
