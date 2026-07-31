@@ -32,15 +32,24 @@ class ProductoModel
         return $this->database->execute($sql, $codigo) == 1;
     }
 
-    public function buscarPorCodigo($codigo)
-    {
-        $sql = "SELECT nombre, descripcion, precio, codigo, categoria_id, foto FROM producto WHERE codigo = ?";
-        return $this->database->query($sql, $codigo);
+    public function buscarProducto($texto) {
+        $txt = trim($texto);
+        $busqueda = "%" . $txt . "%";
+
+        $sql = "SELECT p.*, c.nombre AS categoria_nombre 
+            FROM producto p
+            LEFT JOIN categoria c ON p.categoria_id = c.id
+            WHERE p.codigo LIKE ? 
+               OR p.nombre LIKE ? 
+               OR c.nombre LIKE ?";
+
+        return $this->database->query($sql, [$busqueda, $busqueda, $busqueda]);
     }
 
-    public function buscarPorNombre($nombre) {
-        $sql = "SELECT nombre, descripcion, precio, codigo, categoria_id, foto FROM producto WHERE nombre = ?";
-        return $this->database->query($sql, $nombre);
+    public function buscarPorId($id)
+    {
+        $sql = "SELECT * FROM producto WHERE id = ?";
+        return $this->database->query($sql, [$id]);
     }
 
     public function obtenerProductos() {

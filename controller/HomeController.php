@@ -20,4 +20,17 @@ class HomeController
 
         $this->renderer->render("home", ["productos" => $productos, "categorias" => $categorias]);
     }
+
+    public function buscadorAjax()
+    {
+        $busqueda = isset($_GET["buscar"]) ? trim($_GET["buscar"]) : "";
+        $productos = [];
+
+        if (strlen($busqueda) >= 3)
+            $productos = $this->productoModel->buscarProducto($busqueda);
+
+        header('Content-type: application/json');
+        echo json_encode($productos);
+        exit();
+    }
 }

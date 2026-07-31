@@ -28,7 +28,7 @@
             </svg>
 
             <!-- Input -->
-            <input type="text" placeholder="Buscar por nombre, categoría o código..." aria-label="Buscar productos"/>
+            <input type="text" placeholder="Buscar por nombre, categoría o código..." aria-label="Buscar productos" id="inputBuscador" name="buscar"/>
         </div>
     </div>
 </section>
@@ -39,13 +39,13 @@
         <h2>Todos los productos</h2>
     </div>
 
-    <div class="product-grid">
+    <div class="product-grid" id="contenedorProductos">
 
         {{#productos}}
             <article class="product-card">
-                <a href="/producto/detalle?id={{id}}" class="product-thumb">
+                <a href="/ecommerce/producto/detalle?id={{id}}" class="product-thumb">
                 {{#foto}}
-                    <img src="/{{foto}}" alt="{{nombre}}" class="product-img" />
+                    <img src="/ecommerce/{{foto}}" alt="{{nombre}}" class="product-img" />
                 {{/foto}}
                 {{^foto}}
                     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
@@ -57,7 +57,7 @@
 
                 <div class="product-info">
                     <span class="product-code">{{codigo}}</span>
-                    <a href="/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
+                    <a href="/ecommerce/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
                     <span class="product-category">{{categoria}}</span>
 
                     <div class="product-footer-row">
@@ -84,5 +84,6 @@
 </main>
 
 {{> footer }}
+<script src="/ecommerce/public/js/script.js"></script>
 </body>
 </html>
