@@ -46,6 +46,15 @@ class ProductoModel
         return $this->database->query($sql, [$busqueda, $busqueda, $busqueda]);
     }
 
+    public function filtrarPorCategoria($id)
+    {
+        $sql = "SELECT p.*
+                FROM producto p 
+                INNER JOIN categoria c ON p.categoria_id = c.id 
+                WHERE p.categoria_id = ?";
+        return $this->database->query($sql, [$id]);
+    }
+
     public function buscarPorId($id)
     {
         $sql = "SELECT * FROM producto WHERE id = ?";

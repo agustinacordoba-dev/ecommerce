@@ -55,6 +55,22 @@ class ProductoController
         $this->renderer->render("detalle", ["producto" => $producto, "categorias" => $categorias]);
     }
 
+    public function filtrarProduPorCategorias()
+    {
+        $idCategoria = $this->request->get("id");
+        $productos = $this->productoModel->filtrarPorCategoria($idCategoria);
+        $categoriaActual = $this->categoriaModel->buscarCategoriaPorId($idCategoria);
+        $categorias = $this->categoriaModel->obtenerCategorias();
+
+        $this->renderer->render("prodCategoria", ["productos" => $productos, "categoriaActual" => $categoriaActual,
+            "totalProductos" => count($productos), "hasProductos" => !empty($productos), "categorias" => $categorias]);
+    }
+
+    public function ofertas()
+    {
+
+    }
+
 // funciones privadas
     private function procesarImagen()
     {

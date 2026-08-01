@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DH Import</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ecommerce/public/css/style.css">
+    <link rel="stylesheet" href="/ecommerce/public/css/categoria.css">
+</head>
+<body>
+{{>header}}
+<main class="category-page-container">
+
+    <!-- Encabezado de la Categoría -->
+    <div class="category-header">
+        <div class="category-title-group">
+            <h1 class="category-title">{{categoriaActual.nombre}}</h1>
+            <span class="category-count">{{totalProductos}} productos encontrados</span>
+        </div>
+    </div>
+
+    <!-- Grilla de Productos -->
+    <section class="products-grid-section">
+        {{#hasProductos}}
+        <div class="product-grid" id="contenedorProductos">
+
+            {{#productos}}
+                <article class="product-card">
+                    <a href="/ecommerce/producto/detalle?id={{id}}" class="product-thumb">
+                    {{#foto}}
+                        <img src="/ecommerce/{{foto}}" alt="{{nombre}}" class="product-img" />
+                    {{/foto}}
+                    {{^foto}}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
+                            <rect x="4" y="4" width="16" height="12" rx="1"/>
+                            <path d="M8 20h8M12 16v4"/>
+                        </svg>
+                    {{/foto}}
+                    </a>
+
+                    <div class="product-info">
+                        <span class="product-code">{{codigo}}</span>
+                        <a href="/ecommerce/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
+                        <span class="product-category">{{categoria}}</span>
+
+                        <div class="product-footer-row">
+                            <span class="product-price">${{precio}}</span>
+                            <button class="add-btn" aria-label="Agregar al carrito">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"/>
+                                    <circle cx="19" cy="21" r="1"/>
+                                    <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            {{/productos}}
+        </div>
+        {{/hasProductos}}
+
+        <!-- Estado vacío si la categoría no tiene productos -->
+        {{^hasProductos}}
+            <div class="empty-category-state">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <h3>No hay productos en esta categoría</h3>
+                <a href="/ecommerce/home/index" class="btn-back-home">Volver al catálogo general</a>
+            </div>
+        {{/hasProductos}}
+
+    </section>
+
+
+</main>
+{{>footer}}
+</body>
+</html>
