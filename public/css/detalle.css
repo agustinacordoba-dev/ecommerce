@@ -23,6 +23,28 @@
     align-items: start;
 }
 
+.badge-discount {
+    background-color: #e63946;
+    color: #ffffff;
+    padding: 4px 8px;
+    font-weight: 700;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.product-price-old {
+    text-decoration: line-through;
+    color: #888888;
+    font-size: 1.1rem;
+    margin-right: 8px;
+}
+
+.product-price-offer {
+    color: #e63946;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
 /* Imagen del Producto */
 .product-image-box {
     width: 100%;

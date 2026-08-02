@@ -37,7 +37,23 @@
             <h1 class="product-title">{{producto.nombre}}</h1>
 
             <!-- Precio -->
-            <div class="product-price">${{producto.precio}}</div>
+            <div class="product-price-container">
+                {{#enOferta}}
+                    <!-- Etiqueta de Oferta -->
+                    <span class="badge-discount">{{productoOff.descuento}}% OFF</span>
+
+                    <!-- Contenedor con ambos precios -->
+                    <div class="price-wrapper">
+                        <span class="product-price-old">${{producto.precio}}</span>
+                        <span class="product-price-offer">${{productoOff.precio_nuevo}}</span>
+                    </div>
+                {{/enOferta}}
+
+                {{^enOferta}}
+                    <!-- Precio Normal (cuando NO está en oferta) -->
+                    <span class="product-price">${{producto.precio}}</span>
+                {{/enOferta}}
+            </div>
 
             <!-- Descripción -->
             <p class="product-description">{{producto.descripcion}}</p>
@@ -52,7 +68,7 @@
                     <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="input-quantity" required>
                 </div>
 
-                <!-- Botón Directo a Pagar -->
+                <!-- Botón Agregar al carrito -->
                 <button type="submit" class="btn btn-primary btn-buy-now">
                     Agregar al carrito
                 </button>
