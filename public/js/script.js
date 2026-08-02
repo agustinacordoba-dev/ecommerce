@@ -31,9 +31,9 @@ function mostrarProductos(productos) {
         return;
     }
 
-    // Renderizamos cada tarjeta de producto exactamente con las mismas clases del Mustache
+    // Renderizamos cada tarjeta de producto
     productos.forEach(p => {
-        // Manejamos el fallback si el producto no tiene foto
+        // Fallback si el producto no tiene foto
         const imagenHTML = p.foto
             ? `<img src="/ecommerce/${p.foto}" alt="${p.nombre}" class="product-img" />`
             : `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
@@ -41,9 +41,26 @@ function mostrarProductos(productos) {
                 <path d="M8 20h8M12 16v4"/>
                </svg>`;
 
+        // Bloque dinámico para el precio según si está en oferta o no
+        let precioHTML = '';
+        let badgeHTML  = '';
+
+        if (p.enOferta) {
+            badgeHTML = `<span class="badge-discount">${p.descuento}% OFF</span>`;
+            precioHTML = `
+                <div class="price-wrapper">
+                    <span class="product-price-old">$${p.precio}</span>
+                    <span class="product-price-offer">$${p.precio_nuevo}</span>
+                </div>
+            `;
+        } else {
+            precioHTML = `<span class="product-price">$${p.precio}</span>`;
+        }
+
         contenedor.innerHTML += `
             <article class="product-card">
                 <a href="/ecommerce/producto/detalle?id=${p.id}" class="product-thumb">
+                    ${badgeHTML}
                     ${imagenHTML}
                 </a>
 
@@ -53,7 +70,7 @@ function mostrarProductos(productos) {
                     <span class="product-category">${p.categoria || ''}</span>
 
                     <div class="product-footer-row">
-                        <span class="product-price">$${p.precio}</span>
+                        ${precioHTML}
                         <button class="add-btn" aria-label="Agregar al carrito">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="9" cy="21" r="1"/>
