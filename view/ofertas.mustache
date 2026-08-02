@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DH Import - Ofertas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ecommerce/public/css/style.css">
+    <link rel="stylesheet" href="/ecommerce/public/css/ofertas.css">
+</head>
+<body>
+{{> header }}
+
+<div class="chevron-strip"></div>
+
+<section class="catalog-hero hero-ofertas">
+    <div class="container">
+        <h1>Ofertas y Descuentos</h1>
+        <p>Aprovechá nuestras promociones exclusivas en productos importados por tiempo limitado.</p>
+    </div>
+
+    <div class="search-wrapper">
+        <div class="search-bar">
+            <!-- Icono SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+
+            <!-- Input -->
+            <input type="text" placeholder="Buscar en ofertas por nombre, categoría o código..." aria-label="Buscar productos en oferta" id="inputBuscador" name="buscar"/>
+        </div>
+    </div>
+</section>
+
+<main class="container catalog-section" id="ofertas">
+
+    <div class="section-heading">
+        <h2>Productos en Rebaja</h2>
+    </div>
+
+    <div class="product-grid" id="contenedorProductos">
+
+        {{#productos}}
+            <article class="product-card product-card-sale">
+
+                <a href="/ecommerce/producto/detalle?id={{id}}" class="product-thumb">
+                <!-- Badge de Oferta -->
+                <span class="badge-sale">
+                        {{#descuento}}-{{descuento}}% OFF{{/descuento}}
+                    {{^descuento}}OFERTA{{/descuento}}
+                    </span>
+
+                {{#foto}}
+                    <img src="/ecommerce/{{foto}}" alt="{{nombre}}" class="product-img" />
+                {{/foto}}
+                {{^foto}}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
+                        <rect x="4" y="4" width="16" height="12" rx="1"/>
+                        <path d="M8 20h8M12 16v4"/>
+                    </svg>
+                {{/foto}}
+                </a>
+
+                <div class="product-info">
+                    <span class="product-code">{{codigo}}</span>
+                    <a href="/ecommerce/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
+                    <span class="product-category">{{categoria}}</span>
+
+                    <div class="product-footer-row">
+                        <div class="price-container">
+                            <!-- Precio anterior tachado (si existe) -->
+                            {{#precio}}
+                                <span class="old-price">${{precio}}</span>
+                            {{/precio}}
+                            <!-- Precio en oferta -->
+                            <span class="product-price sale-price">${{precio_nuevo}}</span>
+                        </div>
+
+                        <button class="add-btn" aria-label="Agregar al carrito">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="9" cy="21" r="1"/>
+                                <circle cx="19" cy="21" r="1"/>
+                                <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </article>
+        {{/productos}}
+
+        {{^productos}}
+            <div class="no-products">
+                <p>No hay productos en oferta disponibles por el momento.</p>
+            </div>
+        {{/productos}}
+
+    </div>
+</main>
+
+{{> footer }}
+<script src="/ecommerce/public/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Estilos de Vista: Productos en Oferta
+   ========================================================================== */
+
+/* Posicionamiento del Thumb para el Badge */
+.product-card-sale .product-thumb {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Badge de Oferta sobre la Imagen */
+.badge-sale {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #e63946; /* Rojo de rebate / alerta */
+    color: #ffffff;
+    font-family: var(--font-display, 'Space Grotesk', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+/* Agrupador de precios */
+.price-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Precio anterior tachado */
+.old-price {
+    font-size: 0.8rem;
+    color: var(--slate, #64748b);
+    text-decoration: line-through;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+/* Destacar el precio de oferta */
+.sale-price {
+    color: #e63946; /* Destaca el precio en oferta */
+    font-weight: 700;
+}

@@ -8,9 +8,9 @@ class ProductoController
     private $categoriaModel;
 
     public function __construct($request, $renderer, $productoModel, $categoriaModel) {
-        $this->request = $request;
-        $this->renderer = $renderer;
-        $this->productoModel = $productoModel;
+        $this->request        = $request;
+        $this->renderer       = $renderer;
+        $this->productoModel  = $productoModel;
         $this->categoriaModel = $categoriaModel;
     }
 
@@ -34,11 +34,9 @@ class ProductoController
             $this->renderer->render("agregarProducto", ["error" => "Todos los campos son obligatorios"]);
         }
 
-        $datos = [$codigo, $nombre, $descripcion, $precio, $stock, $foto, $categoria_id];
-
-        if($this->productoModel->agregarProducto($datos)) {
+        if($this->productoModel->agregarProducto([$codigo, $nombre, $descripcion, $precio, $stock, $foto, $categoria_id]))
             $this->renderer->render("agregarProducto", ["mensaje" => "Producto Agregado"]);
-        } else {
+        else {
             Log::error("ProductoController::agregar - Error el producto no pudo ser agregado");
             $this->renderer->render("agregarProducto", ["error" => "El producto no pudo ser agregado"]);
         }
@@ -47,20 +45,24 @@ class ProductoController
 
     public function detalle()
     {
-        $id = $this->request->get("id");
-        $resultado = $this->productoModel->buscarPorId($id);
-        $categorias = $this->categoriaModel->obtenerCategorias();
-        $producto = !empty($resultado) ? $resultado[0] : null;
+        $id         = $this->request->get("id");
+        $resultado  = $this->productoModel->buscarPorId($id);
+        $producto   = !empty($resultado) ? $resultado[0] : null;
 
-        $this->renderer->render("detalle", ["producto" => $producto, "categorias" => $categorias]);
+        $categorias = $this->categoriaModel->obtenerCategorias();
+
+        $estaEnOff  = $this->verificarSiEstaEnOfertas($id);
+        $productoOff = $this->buscarProductoEnOferta($id);
+
+        $this->renderer->render("detalle", ["producto" => $producto, "categorias" => $categorias, "enOferta" => $estaEnOff, "productoOff" => $productoOff]);
     }
 
     public function filtrarProduPorCategorias()
     {
-        $idCategoria = $this->request->get("id");
-        $productos = $this->productoModel->filtrarPorCategoria($idCategoria);
+        $idCategoria     = $this->request->get("id");
+        $productos       = $this->productoModel->filtrarPorCategoria($idCategoria);
         $categoriaActual = $this->categoriaModel->buscarCategoriaPorId($idCategoria);
-        $categorias = $this->categoriaModel->obtenerCategorias();
+        $categorias      = $this->categoriaModel->obtenerCategorias();
 
         $this->renderer->render("prodCategoria", ["productos" => $productos, "categoriaActual" => $categoriaActual,
             "totalProductos" => count($productos), "hasProductos" => !empty($productos), "categorias" => $categorias]);
@@ -68,7 +70,10 @@ class ProductoController
 
     public function ofertas()
     {
+        $productos  = $this->productoModel->ofertas();
+        $categorias = $this->categoriaModel->obtenerCategorias();
 
+        $this->renderer->render("ofertas", ["productos" => $productos, "categorias" => $categorias]);
     }
 
 // funciones privadas
@@ -108,5 +113,29 @@ class ProductoController
         }
 
         return $rutaFinal;
+    }
+
+    private function verificarSiEstaEnOfertas($id)
+    {
+        $idsOfertas = array_column($this->productoModel->ofertas(), 'producto_id');
+
+        foreach ($idsOfertas as $i => $idOferta)
+            if ($id == $idOferta)
+                return true;
+
+        return false;
+    }
+
+    private function buscarProductoEnOferta($id)
+    {
+        $idsOfertas = array_column($this->productoModel->ofertas(), 'producto_id');
+
+        foreach ($idsOfertas as $i => $idOferta)
+            if ($id == $idOferta) {
+                $resultado = $this->productoModel->buscarProductoEnOferta($id);
+                return !empty($resultado) ? $resultado[0] : null;
+            }
+
+        return null;
     }
 }

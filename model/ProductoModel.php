@@ -66,6 +66,21 @@ class ProductoModel
         return $this->database->query($sql);
     }
 
+    public function ofertas()
+    {
+        $sql = "SELECT p.*, op.producto_id, op.precio_nuevo, op.descuento 
+                FROM producto p 
+                INNER JOIN productos_ofertas op ON op.producto_id = p.id";
+
+        return $this->database->query($sql);
+    }
+
+    public function buscarProductoEnOferta($id)
+    {
+        $sql = "SELECT * FROM productos_ofertas WHERE producto_id = ?";
+        return $this->database->query($sql, [$id]);
+    }
+
     private function generarCodigo()
     {
         return sprintf('%06d', random_int(0, 999999));

@@ -45,6 +45,23 @@ CREATE TABLE IF NOT EXISTS producto (
                                                 ON UPDATE CASCADE
 );
 
+-- Tabla Productos en oferta
+CREATE TABLE IF NOT EXISTS productos_ofertas (
+                                               id INT AUTO_INCREMENT PRIMARY KEY,
+                                               producto_id INT NOT NULL UNIQUE, -- UNIQUE garantiza que un producto no tenga dos ofertas activas duplicadas
+                                               precio_viejo DECIMAL(10, 2) NOT NULL,
+                                               precio_nuevo DECIMAL(10, 2) NOT NULL,
+                                               descuento INT NOT NULL, -- Porcentaje de descuento (ej: 15%)
+                                               fecha_inicio DATETIME DEFAULT CURRENT_TIMESTAMP,
+                                               fecha_fin DATETIME NULL,
+
+                                               CONSTRAINT fk_oferta_producto
+                                                   FOREIGN KEY (producto_id)
+                                                       REFERENCES producto(id)
+                                                       ON DELETE CASCADE
+                                                       ON UPDATE CASCADE
+);
+
 -- ---------------------- INSERT ----------------------
 INSERT INTO categoria (nombre) VALUES
                                    ('Electrodomésticos'),
@@ -127,3 +144,36 @@ INSERT INTO producto (codigo, nombre, descripcion, precio, stock, foto, categori
                                                                                               'public/img/prod-8.jpg',
                                                                                               1  -- Electrodomésticos (o Hogar)
                                                                                           );
+
+-- Insertar ofertas para algunos de los productos existentes
+INSERT INTO productos_ofertas (producto_id, precio_viejo, precio_nuevo, descuento) VALUES
+                                                                                     (
+                                                                                         1,          -- MOUSE GAMER RGB
+                                                                                         24649.00,   -- precio_viejo (precio original)
+                                                                                         19719.20,   -- precio_nuevo (20% OFF)
+                                                                                         20          -- % descuento
+                                                                                     ),
+                                                                                     (
+                                                                                         3,          -- CONJUNTO DEPORTIVO
+                                                                                         19500.00,   -- precio_viejo
+                                                                                         14625.00,   -- precio_nuevo (25% OFF)
+                                                                                         25          -- % descuento
+                                                                                     ),
+                                                                                     (
+                                                                                         4,          -- PROCESADORA 2 EN 1 JARRA DE VIDRIO 1000W
+                                                                                         9800.00,    -- precio_viejo
+                                                                                         8330.00,    -- precio_nuevo (15% OFF)
+                                                                                         15          -- % descuento
+                                                                                     ),
+                                                                                     (
+                                                                                         6,          -- CABLE HDMI MALLADO 1.5M
+                                                                                         42990.00,   -- precio_viejo
+                                                                                         30093.00,   -- precio_nuevo (30% OFF)
+                                                                                         30          -- % descuento
+                                                                                     ),
+                                                                                     (
+                                                                                         8,          -- ASPIRADORA LILIANA 1600W
+                                                                                         16900.00,   -- precio_viejo
+                                                                                         15210.00,   -- precio_nuevo (10% OFF)
+                                                                                         10          -- % descuento
+                                                                                     );
