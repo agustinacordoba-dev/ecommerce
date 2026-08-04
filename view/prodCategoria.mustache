@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/ecommerce/public/css/style.css">
     <link rel="stylesheet" href="/ecommerce/public/css/categoria.css">
+    <link rel="stylesheet" href="/ecommerce/public/css/ofertas.css">
 </head>
 <body>
 {{>header}}
@@ -16,7 +17,7 @@
     <!-- Encabezado de la Categoría -->
     <div class="category-header">
         <div class="category-title-group">
-            <h1 class="category-title">{{categoriaActual.nombre}}</h1>
+            <h2 class="category-title">{{categoriaActual.nombre}}</h2>
             <span class="category-count">{{totalProductos}} productos encontrados</span>
         </div>
     </div>
@@ -27,36 +28,90 @@
         <div class="product-grid" id="contenedorProductos">
 
             {{#productos}}
-                <article class="product-card">
-                    <a href="/ecommerce/producto/detalle?id={{id}}" class="product-thumb">
-                    {{#foto}}
-                        <img src="/ecommerce/{{foto}}" alt="{{nombre}}" class="product-img" />
-                    {{/foto}}
-                    {{^foto}}
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
-                            <rect x="4" y="4" width="16" height="12" rx="1"/>
-                            <path d="M8 20h8M12 16v4"/>
-                        </svg>
-                    {{/foto}}
-                    </a>
+                {{#en_oferta}}
+                    <!-- Tarjeta de Producto en Oferta -->
+                    <article class="product-card product-card-sale">
+                        <a href="/ecommerce/producto/detalle?id={{id}}" class="product-thumb">
+                        <!-- Badge de Oferta -->
+                        <span class="badge-sale">
+                    {{#descuento}}-{{descuento}}% OFF{{/descuento}}
+                            {{^descuento}}OFERTA{{/descuento}}
+                </span>
 
-                    <div class="product-info">
-                        <span class="product-code">{{codigo}}</span>
-                        <a href="/ecommerce/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
-                        <span class="product-category">{{categoria}}</span>
+                        {{#foto}}
+                            <img src="/ecommerce/{{foto}}" alt="{{nombre}}" class="product-img" />
+                        {{/foto}}
+                        {{^foto}}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
+                                <rect x="4" y="4" width="16" height="12" rx="1"/>
+                                <path d="M8 20h8M12 16v4"/>
+                            </svg>
+                        {{/foto}}
+                        </a>
 
-                        <div class="product-footer-row">
-                            <span class="product-price">${{precio}}</span>
-                            <button class="add-btn" aria-label="Agregar al carrito">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="9" cy="21" r="1"/>
-                                    <circle cx="19" cy="21" r="1"/>
-                                    <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
-                                </svg>
-                            </button>
+                        <div class="product-info">
+                            <span class="product-code">{{codigo}}</span>
+                            <a href="/ecommerce/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
+                            <span class="product-category">{{categoria}}</span>
+
+                            <div class="product-footer-row">
+                                <div class="price-container">
+                                    <!-- Precio anterior tachado -->
+                                    {{#precio}}
+                                        <span class="old-price">${{precio}}</span>
+                                    {{/precio}}
+                                    <!-- Precio en oferta -->
+                                    <span class="product-price sale-price">${{precio_nuevo}}</span>
+                                </div>
+
+                                <button class="add-btn" aria-label="Agregar al carrito">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="9" cy="21" r="1"/>
+                                        <circle cx="19" cy="21" r="1"/>
+                                        <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                {{/en_oferta}}
+
+                {{^en_oferta}}
+                    <!-- Tarjeta de Producto Normal (Sin oferta) -->
+                    <article class="product-card">
+                        <a href="/ecommerce/producto/detalle?id={{id}}" class="product-thumb">
+                        {{#foto}}
+                            <img src="/ecommerce/{{foto}}" alt="{{nombre}}" class="product-img" />
+                        {{/foto}}
+                        {{^foto}}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6">
+                                <rect x="4" y="4" width="16" height="12" rx="1"/>
+                                <path d="M8 20h8M12 16v4"/>
+                            </svg>
+                        {{/foto}}
+                        </a>
+
+                        <div class="product-info">
+                            <span class="product-code">{{codigo}}</span>
+                            <a href="/ecommerce/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
+                            <span class="product-category">{{categoria}}</span>
+
+                            <div class="product-footer-row">
+                                <div class="price-container">
+                                    <span class="product-price">${{precio}}</span>
+                                </div>
+
+                                <button class="add-btn" aria-label="Agregar al carrito">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="9" cy="21" r="1"/>
+                                        <circle cx="19" cy="21" r="1"/>
+                                        <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                {{/en_oferta}}
             {{/productos}}
         </div>
         {{/hasProductos}}

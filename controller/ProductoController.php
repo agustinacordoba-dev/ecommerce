@@ -60,11 +60,11 @@ class ProductoController
     public function filtrarProduPorCategorias()
     {
         $idCategoria     = $this->request->get("id");
-        $productos       = $this->productoModel->filtrarPorCategoria($idCategoria);
+        $productos       = $this->obtenerProductosModificadosParaSaberSiEstaEnOferta($this->productoModel->filtrarPorCategoria($idCategoria));
         $categoriaActual = $this->categoriaModel->buscarCategoriaPorId($idCategoria);
         $categorias      = $this->categoriaModel->obtenerCategorias();
 
-        $this->renderer->render("prodCategoria", ["productos" => $productos, "categoriaActual" => $categoriaActual,
+        $this->renderer->render("prodCategoria", ["productos" => $productos, "categoriaActual" => $categoriaActual[0],
             "totalProductos" => count($productos), "hasProductos" => !empty($productos), "categorias" => $categorias]);
     }
 
@@ -118,12 +118,7 @@ class ProductoController
     private function verificarSiEstaEnOfertas($id)
     {
         $idsOfertas = array_column($this->productoModel->ofertas(), 'producto_id');
-
-        foreach ($idsOfertas as $i => $idOferta)
-            if ($id == $idOferta)
-                return true;
-
-        return false;
+        return in_array($id, $idsOfertas);
     }
 
     private function buscarProductoEnOferta($id)
@@ -137,5 +132,25 @@ class ProductoController
             }
 
         return null;
+    }
+
+    private function obtenerProductosModificadosParaSaberSiEstaEnOferta($productos)
+    {
+        $ofertas = $this->productoModel->ofertas();
+        $idsOfertas = array_column($ofertas, 'producto_id');
+        $productosModificados = [];
+
+        foreach ($productos as $producto) {
+            if (in_array($producto['id'], $idsOfertas)) {
+                $producto['en_oferta'] = true;
+                foreach ($ofertas as $oferta)
+                    if ($producto['id'] == $oferta['producto_id']) {
+                        $producto['precio_nuevo'] = $oferta['precio_nuevo'];
+                        $producto['descuento'] = $oferta['descuento'];
+                    }
+            }
+            $productosModificados[] = $producto;
+        }
+        return $productosModificados;
     }
 }

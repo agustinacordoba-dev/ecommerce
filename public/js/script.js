@@ -44,43 +44,45 @@ function mostrarProductos(productos) {
         // Bloque dinámico para el precio según si está en oferta o no
         let precioHTML = '';
         let badgeHTML  = '';
+        let artiHTML = '';
 
-        if (p.enOferta) {
-            badgeHTML = `<span class="badge-discount">${p.descuento}% OFF</span>`;
-            precioHTML = `
-                <div class="price-wrapper">
-                    <span class="product-price-old">$${p.precio}</span>
-                    <span class="product-price-offer">$${p.precio_nuevo}</span>
+        if (p.en_oferta) {
+                artiHTML = `product-card-sale`;
+                badgeHTML = `<span class="badge-sale">${p.descuento}% OFF</span>`;
+                precioHTML = `
+                <div class="price-container">
+                    <span class="old-price">$${p.precio}</span>
+                    <span class="product-price sale-price">$${p.precio_nuevo}</span>
                 </div>
-            `;
-        } else {
-            precioHTML = `<span class="product-price">$${p.precio}</span>`;
-        }
+                `;
+                } else {
+                precioHTML = `<span class="product-price">$${p.precio}</span>`;
+            }
 
-        contenedor.innerHTML += `
-            <article class="product-card">
-                <a href="/ecommerce/producto/detalle?id=${p.id}" class="product-thumb">
-                    ${badgeHTML}
-                    ${imagenHTML}
-                </a>
+                contenedor.innerHTML += `
+                <article className="product-card ${artiHTML}">
+                    <a href="/ecommerce/producto/detalle?id=${p.id}" class="product-thumb">
+                        ${badgeHTML}
+                        ${imagenHTML}
+                    </a>
 
-                <div class="product-info">
-                    <span class="product-code">${p.codigo || ''}</span>
-                    <a href="/ecommerce/producto/detalle?id=${p.id}" class="product-name">${p.nombre}</a>
-                    <span class="product-category">${p.categoria || ''}</span>
+                    <div class="product-info">
+                        <span class="product-code">${p.codigo || ''}</span>
+                        <a href="/ecommerce/producto/detalle?id=${p.id}" class="product-name">${p.nombre}</a>
+                        <span class="product-category">${p.categoria || ''}</span>
 
-                    <div class="product-footer-row">
-                        ${precioHTML}
-                        <button class="add-btn" aria-label="Agregar al carrito">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="9" cy="21" r="1"/>
-                                <circle cx="19" cy="21" r="1"/>
-                                <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
-                            </svg>
-                        </button>
+                        <div class="product-footer-row">
+                            ${precioHTML}
+                            <button class="add-btn" aria-label="Agregar al carrito">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"/>
+                                    <circle cx="19" cy="21" r="1"/>
+                                    <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </article>
-        `;
-    });
-}
+                </article>
+                `;
+                });
+                }
