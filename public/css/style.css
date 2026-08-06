@@ -19,6 +19,42 @@ main, .product-detail-container {
     flex: 1;
 }
 
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-welcome {
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+}
+
+.user-welcome strong {
+    font-weight: 600;
+    color: var(--light);
+}
+
+.btn-logout {
+    background-color: transparent;
+    color: var(--gray);
+    border: 1px solid var(--slate);
+    padding: 0.5rem 0.85rem;
+    border-radius: calc(var(--radius) - 4px);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border-color: var(--white);
+}
+
 /*buscador*/
 /* Contenedor: Ocupa el 100% del ancho del catálogo (área amarilla) */
 .search-wrapper {

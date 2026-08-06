@@ -45,35 +45,59 @@ class ProductoController
 
     public function detalle()
     {
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+
         $id         = $this->request->get("id");
         $resultado  = $this->productoModel->buscarPorId($id);
         $producto   = !empty($resultado) ? $resultado[0] : null;
 
         $categorias = $this->categoriaModel->obtenerCategorias();
 
+        $nombre   = $_SESSION['nombre'] ?? "";
+        $apellido = $_SESSION['apellido'] ?? "";
+        $logueado = isset($_SESSION['id']);
+
         $estaEnOff  = $this->verificarSiEstaEnOfertas($id);
         $productoOff = $this->buscarProductoEnOferta($id);
 
-        $this->renderer->render("detalle", ["producto" => $producto, "categorias" => $categorias, "enOferta" => $estaEnOff, "productoOff" => $productoOff]);
+        $this->renderer->render("detalle", ["producto" => $producto,  "categorias" => $categorias, "enOferta" => $estaEnOff,
+            "productoOff" => $productoOff, "nombre" => $nombre, "apellido" => $apellido, "logueado" => $logueado]);
     }
 
     public function filtrarProduPorCategorias()
     {
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+
         $idCategoria     = $this->request->get("id");
         $productos       = $this->obtenerProductosModificadosParaSaberSiEstaEnOferta($this->productoModel->filtrarPorCategoria($idCategoria));
         $categoriaActual = $this->categoriaModel->buscarCategoriaPorId($idCategoria);
         $categorias      = $this->categoriaModel->obtenerCategorias();
 
+        $nombre   = $_SESSION['nombre'] ?? "";
+        $apellido = $_SESSION['apellido'] ?? "";
+        $logueado = isset($_SESSION['id']);
+
         $this->renderer->render("prodCategoria", ["productos" => $productos, "categoriaActual" => $categoriaActual[0],
-            "totalProductos" => count($productos), "hasProductos" => !empty($productos), "categorias" => $categorias]);
+            "totalProductos" => count($productos), "hasProductos" => !empty($productos), "categorias" => $categorias,
+            "nombre" => $nombre, "apellido" => $apellido, "logueado" => $logueado]);
     }
 
     public function ofertas()
     {
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+
         $productos  = $this->productoModel->ofertas();
         $categorias = $this->categoriaModel->obtenerCategorias();
 
-        $this->renderer->render("ofertas", ["productos" => $productos, "categorias" => $categorias]);
+        $nombre   = $_SESSION['nombre'] ?? "";
+        $apellido = $_SESSION['apellido'] ?? "";
+        $logueado = isset($_SESSION['id']);
+
+        $this->renderer->render("ofertas", ["productos" => $productos, "categorias" => $categorias,
+            "nombre" => $nombre, "apellido" => $apellido, "logueado" => $logueado]);
     }
 
 // funciones privadas

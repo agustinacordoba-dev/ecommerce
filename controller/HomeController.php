@@ -15,10 +15,17 @@ class HomeController
     }
 
     public function index() {
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+
+        $nombre   = $_SESSION['nombre'] ?? "";
+        $apellido = $_SESSION['apellido'] ?? "";
+        $logueado = isset($_SESSION['id']);
+
         $categorias = $this->categoriaModel->obtenerCategorias();
         $productos = $this->eliminarProductoEnOfertasDeGeneral($this->productoModel->obtenerProductos(), $this->productoModel->ofertas());
 
-        $this->renderer->render("home", ["productos" => $productos, "categorias" => $categorias]);
+        $this->renderer->render("home", ["productos" => $productos, "categorias" => $categorias, "nombre" => $nombre, "apellido" => $apellido, "logueado" => $logueado]);
     }
 
     public function buscadorAjax()

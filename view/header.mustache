@@ -30,9 +30,21 @@
             <li><a href="/ecommerce/producto/ofertas" class="nav-link">Ofertas</a></li>
         </ul>
 
-        <div class="nav-actions">
-            <a href="#" class="btn btn-ghost">Ingresar</a>
-            <a href="#" class="btn btn-accent">Crear cuenta</a>
+        <div class="user-actions">
+            {{#logueado}}
+                <!-- Se muestra si el usuario INICIÓ sesión -->
+                <span class="user-welcome"><strong>{{nombre}} {{apellido}}</strong></span>
+                <a href="?controller=usuario&method=cerrarSesion" class="btn-logout">
+                    Cerrar sesión
+                </a>
+            {{/logueado}}
+
+            {{^logueado}}
+                <div class="nav-actions">
+                    <a href="/ecommerce/usuario/iniciarSesion" class="btn btn-ghost">Ingresar</a>
+                    <a href="/ecommerce/usuario/registro" class="btn btn-accent">Crear cuenta</a>
+                </div>
+            {{/logueado}}
         </div>
     </div>
 </header>
