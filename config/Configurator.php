@@ -24,6 +24,11 @@ class Configurator
         return new ProductoController(new Request(), $this->getRenderer(), $this->getProductoModel(), $this->getCategoriaModel());
     }
 
+    public function getUsuarioController()
+    {
+        return new UsuarioController(new Request(), $this->getRenderer(), $this->getUsuarioModel(), $this->getCategoriaModel());
+    }
+
     public function getRouter()
     {
         return new Router($this, 'home', 'index');
@@ -53,10 +58,7 @@ class Configurator
 
     private function getRenderer()
     {
-        return new MustacheRenderer(
-            __DIR__ . '/../view',
-            $this->getDatabase()
-        );
+        return new MustacheRenderer(__DIR__ . '/../view', $this->getDatabase());
     }
 
     private function getCategoriaModel()
@@ -64,7 +66,13 @@ class Configurator
         return new CategoriaModel($this->getDatabase());
     }
 
-    private function getProductoModel() {
+    private function getProductoModel()
+    {
         return new ProductoModel($this->getDatabase());
+    }
+
+    private function getUsuarioModel()
+    {
+        return new UsuarioModel($this->getDatabase());
     }
 }
