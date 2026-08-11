@@ -13,5 +13,4 @@ class CategoriaController
         $this->categoriaModel = $categoriaModel;
     }
 
-
 }
