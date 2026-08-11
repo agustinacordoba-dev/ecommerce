@@ -62,6 +62,29 @@ CREATE TABLE IF NOT EXISTS productos_ofertas (
                                                        ON UPDATE CASCADE
 );
 
+CREATE TABLE carritos (
+                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          cliente_id INT,
+                          estado ENUM('activo', 'comprado', 'abandonado') DEFAULT 'activo',
+                          creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                          actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+                          FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
+);
+
+CREATE TABLE carrito_productos (
+                                   id INT AUTO_INCREMENT PRIMARY KEY,
+                                   carrito_id INT NOT NULL,
+                                   producto_id INT NOT NULL,
+                                   cantidad INT NOT NULL DEFAULT 1,
+                                   precio_unitario DECIMAL(10, 2) NOT NULL,  -- Congela el precio al agregar al carrito
+                                   agregado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+                                   FOREIGN KEY (carrito_id) REFERENCES carritos(id) ON DELETE CASCADE,
+                                   FOREIGN KEY (producto_id) REFERENCES producto(id) ON DELETE CASCADE,
+                                   UNIQUE (carrito_id, producto_id)
+);
+
 -- ---------------------- INSERT ----------------------
 INSERT INTO categoria (nombre) VALUES
                                    ('Electrodomésticos'),

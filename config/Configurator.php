@@ -29,6 +29,11 @@ class Configurator
         return new UsuarioController(new Request(), $this->getRenderer(), $this->getUsuarioModel(), $this->getCategoriaModel());
     }
 
+    public function getCarritoController()
+    {
+        return new CarritoController(new Request(), $this->getRenderer(), $this->getCarritoModel(), $this->getCarritoProductoModel(), $this->getUsuarioModel(), $this->getProductoModel(), $this->getCategoriaModel());
+    }
+
     public function getRouter()
     {
         return new Router($this, 'home', 'index');
@@ -74,5 +79,15 @@ class Configurator
     private function getUsuarioModel()
     {
         return new UsuarioModel($this->getDatabase());
+    }
+
+    private function getCarritoModel()
+    {
+        return new CarritoModel($this->getDatabase());
+    }
+
+    private function getCarritoProductoModel()
+    {
+        return new CarritoProductoModel($this->getDatabase());
     }
 }

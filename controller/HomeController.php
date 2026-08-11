@@ -18,14 +18,22 @@ class HomeController
         if (session_status() == PHP_SESSION_NONE)
             session_start();
 
-        $nombre   = $_SESSION['nombre'] ?? "";
-        $apellido = $_SESSION['apellido'] ?? "";
+        $nombre     = $_SESSION['nombre'] ?? "";
+        $apellido   = $_SESSION['apellido'] ?? "";
+        $cliente_id = $_SESSION['id'] ?? "";
         $logueado = isset($_SESSION['id']);
+
+        $mensajeExito = $_SESSION['mensajeExito'] ?? null;
+        $mensajeError = $_SESSION['mensajeError'] ?? null;
+
+        // Limpiar los mensajes de la sesión
+        unset($_SESSION['mensajeExito']);
+        unset($_SESSION['mensajeError']);
 
         $categorias = $this->categoriaModel->obtenerCategorias();
         $productos = $this->eliminarProductoEnOfertasDeGeneral($this->productoModel->obtenerProductos(), $this->productoModel->ofertas());
 
-        $this->renderer->render("home", ["productos" => $productos, "categorias" => $categorias, "nombre" => $nombre, "apellido" => $apellido, "logueado" => $logueado]);
+        $this->renderer->render("home", ["productos" => $productos, "categorias" => $categorias, "nombre" => $nombre, "apellido" => $apellido, "logueado" => $logueado, "cliente_id" => $cliente_id, "mensajeExito" => $mensajeExito, "mensajeError" => $mensajeError]);
     }
 
     public function buscadorAjax()
