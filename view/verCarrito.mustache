@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DH Import</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ecommerce/public/css/style.css">
+    <link rel="stylesheet" href="/ecommerce/public/css/verCarrito.css">
+</head>
+<body>
+{{>header}}
+<main class="cart-container">
+    <h1 class="cart-title">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+            <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+        </svg>
+        Mi Carrito
+    </h1>
+    {{#productos.0}}
+        <div class="cart-layout">
+        <!-- Listado de Productos -->
+            <div class="cart-table-wrapper">
+                <table class="cart-table">
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th style="text-align: center;">Cantidad</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#productos}}
+                        <tr>
+                            <td class="product-cell">
+                                <img src="/ecommerce/{{producto_imagen}}" alt="{{producto_nombre}}" class="product-img">
+                                <span class="product-name">{{producto_nombre}}</span>
+                            </td>
+                            <td class="unit-price">${{precio_unitario}}</td>
+                            <td style="text-align: center;">
+                                <span class="quantity-badge">{{cantidad}}</span>
+                            </td>
+                            <td class="subtotal-price">${{subtotal}}</td>
+                            <td style="text-align: right;">
+                                <!-- Formulario opcional para eliminar el ítem -->
+                                <form action="/ecommerce/carrito/eliminarProducto/{{id}}" method="POST">
+                                    <button type="submit" class="btn-remove" aria-label="Eliminar producto" title="Eliminar">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {{/productos}}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Resumen lateral de la orden -->
+            <aside class="cart-summary">
+                <h2 class="summary-title">Resumen del pedido</h2>
+                <div class="summary-row">
+                    <span>Productos</span>
+                    <span>{{productos.length}} ítem(s)</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío</span>
+                    <span style="color: var(--blue); font-weight: 500;">Gratis</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <!-- Puedes pasar la suma total calculada desde PHP -->
+                    <span class="total-amount">${{totalCarrito}}</span>
+                </div>
+
+                <a href="#" class="btn-checkout">Finalizar Compra</a>
+            </aside>
+        </div>
+    {{/productos.0}}
+
+
+    {{^productos.0}}
+        <!-- Vista cuando el carrito está vacío -->
+        <div class="empty-cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/>
+                <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
+            </svg>
+            <h2>Tu carrito está vacío</h2>
+            <p>Parece que aún no has añadido ningún producto.</p>
+            <a href="/ecommerce/home/index" class="btn-continue">Ver Productos</a>
+        </div>
+    {{/productos.0}}
+</main>
+<br>
+{{>footer}}
+</body>
+</html>

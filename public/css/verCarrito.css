@@ -1,0 +1,291 @@
+@import url('paleta-colores.css');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 1. Ajuste general del Body */
+body {
+    font-family: var(--font-body);
+    background-color: var(--light);
+    color: var(--navy);
+    line-height: 1.5;
+    margin: 0;
+    padding: 0; /* 👈 Importante: elimina el padding previo de 40px 20px */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. Header a full width y pegado arriba */
+.site-header {
+    background: var(--navy);
+    color: var(--white);
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%; /* 👈 Ocupa todo el ancho */
+    z-index: 100;
+}
+
+/* El contenido interno del header se mantiene alineado al centro */
+.nav-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 14px 24px;
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+/* 3. Footer a full width y pegado abajo */
+.site-footer {
+    background: var(--navy);
+    color: var(--gray);
+    padding: 52px 0 0;
+    margin-top: auto; /* Push al final de la pantalla */
+    width: 100%; /* 👈 Ocupa todo el ancho */
+}
+
+/* Ajusta los contenidos internos del footer para alinearlos al contenedor */
+.footer-grid,
+.footer-bottom {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.cart-container {
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+.cart-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Layout Grid */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 32px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .cart-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tabla de Productos */
+.cart-table-wrapper {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.cart-table th {
+    background-color: var(--navy);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 20px;
+}
+
+.cart-table td {
+    padding: 20px;
+    border-bottom: 1px solid var(--gray);
+    vertical-align: middle;
+}
+
+.cart-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Columna de Producto (Foto + Nombre) */
+.product-cell {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.product-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: calc(var(--radius) - 4px);
+    background-color: var(--light);
+    border: 1px solid var(--gray);
+}
+
+.product-name {
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 1rem;
+}
+
+/* Formatos de Precio y Cantidad */
+.unit-price {
+    color: var(--slate);
+    font-size: 0.95rem;
+}
+
+.quantity-badge {
+    display: inline-block;
+    background-color: var(--light);
+    color: var(--navy);
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--gray);
+    font-size: 0.9rem;
+}
+
+.subtotal-price {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 1.05rem;
+}
+
+/* Acciones (Boton Eliminar) */
+.btn-remove {
+    background: transparent;
+    border: none;
+    color: var(--slate);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-remove:hover {
+    color: var(--error-text);
+    background-color: var(--error-bg);
+}
+
+/* Resumen de Compra */
+.cart-summary {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    /*position: sticky;*/
+    top: 90px; /* Separación con respecto al header fijo al hacer scroll */
+}
+
+.summary-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--navy);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--light);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: var(--slate);
+    font-size: 0.95rem;
+}
+
+.summary-row.total {
+    color: var(--navy);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px dashed var(--gray);
+}
+
+.summary-row.total .total-amount {
+    font-family: var(--font-mono);
+    color: var(--blue);
+}
+
+.btn-checkout {
+    display: block;
+    width: 100%;
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    padding: 14px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-checkout:hover {
+    background-color: var(--navy);
+}
+
+/* Estado Vacío */
+.empty-cart {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.empty-cart svg {
+    width: 64px;
+    height: 64px;
+    stroke: var(--slate);
+    margin-bottom: 16px;
+}
+
+.empty-cart h2 {
+    font-family: var(--font-display);
+    color: var(--navy);
+    margin-bottom: 8px;
+}
+
+.empty-cart p {
+    color: var(--slate);
+    margin-bottom: 24px;
+}
+
+.btn-continue {
+    display: inline-block;
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-continue:hover {
+    background-color: var(--navy);
+}
