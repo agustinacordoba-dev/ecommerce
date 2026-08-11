@@ -36,6 +36,20 @@
 
 <main class="container catalog-section" id="ofertas">
 
+    {{#mensajeExito}}
+        <div class="alert-message alert-success">
+            <span>{{mensajeExito}}</span>
+            <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+    {{/mensajeExito}}
+
+    {{#mensajeError}}
+        <div class="alert-message alert-error">
+            <span>{{mensajeError}}</span>
+            <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+    {{/mensajeError}}
+
     <div class="section-heading">
         <h2>Todos los productos</h2>
     </div>
@@ -61,16 +75,13 @@
                     <a href="/ecommerce/producto/detalle?id={{id}}" class="product-name">{{nombre}}</a>
                     <span class="product-category">{{categoria}}</span>
 
-                    <div class="product-footer-row">
+                    <form class="product-footer-row" action="/ecommerce/carrito/agregarAlCarrito?id={{id}}" method="POST">
+                        <input type="hidden" name="cantidad" value="1">
                         <span class="product-price">${{precio}}</span>
-                        <button class="add-btn" aria-label="Agregar al carrito">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="9" cy="21" r="1"/>
-                                <circle cx="19" cy="21" r="1"/>
-                                <path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/>
-                            </svg>
+                        <button class="add-btn" aria-label="Agregar al carrito" type="submit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 3h2l2.4 12.4a2 2 0 002 1.6h9.2a2 2 0 002-1.6L21 7H6"/></svg>
                         </button>
-                    </div>
+                    </form>
                 </div>
             </article>
         {{/productos}}

@@ -24,6 +24,35 @@ main, .product-detail-container {
     align-items: center;
     gap: 1rem;
 }
+alert-message {
+    padding: 14px 20px;
+    border-radius: var(--radius, 10px);
+    margin-bottom: 24px;
+    font-family: var(--font-body, "Inter", sans-serif);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow, 0 8px 24px rgba(2, 29, 64, 0.08));
+}
+.alert-success {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: 1px solid #ceead6;
+}
+.alert-error {
+    background-color: var(--error-bg, #fde8e8);
+    color: var(--error-text, #c53030);
+    border: 1px solid #f8b4b4;
+}
+.alert-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: inherit;
+    line-height: 1;
+}
 
 .user-welcome {
     color: var(--white);
