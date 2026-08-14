@@ -24,34 +24,56 @@ main, .product-detail-container {
     align-items: center;
     gap: 1rem;
 }
-alert-message {
-    padding: 14px 20px;
-    border-radius: var(--radius, 10px);
-    margin-bottom: 24px;
-    font-family: var(--font-body, "Inter", sans-serif);
-    font-weight: 500;
+
+.alert {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow, 0 8px 24px rgba(2, 29, 64, 0.08));
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    animation: fadeIn 0.3s ease-in-out;
 }
+
+.alert svg {
+    flex-shrink: 0;
+}
+
+/* Alerta de Éxito */
 .alert-success {
-    background-color: #e6f4ea;
-    color: #137333;
-    border: 1px solid #ceead6;
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border: 1px solid var(--success-border);
 }
+
+.alert-success svg {
+    stroke: var(--success-text);
+}
+
+/* Alerta de Error */
 .alert-error {
-    background-color: var(--error-bg, #fde8e8);
-    color: var(--error-text, #c53030);
-    border: 1px solid #f8b4b4;
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border: 1px solid var(--error-border);
 }
-.alert-close {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: inherit;
-    line-height: 1;
+
+.alert-error svg {
+    stroke: var(--error-text);
+}
+
+/* Animación de entrada opcional */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .user-welcome {

@@ -16,4 +16,9 @@
     --error-bg: #fde8e8;
     --error-text: #c53030;
     --shadow: 0 8px 24px rgba(2, 29, 64, 0.08);
+
+    --success-bg: #e6f4ea;
+    --success-text: #137333;
+    --success-border: #ceead6;
+    --error-border: #f8b4b4;
 }

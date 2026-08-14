@@ -37,16 +37,23 @@
 <main class="container catalog-section" id="ofertas">
 
     {{#mensajeExito}}
-        <div class="alert-message alert-success">
+        <div class="alert alert-success" role="alert">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
             <span>{{mensajeExito}}</span>
-            <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
         </div>
     {{/mensajeExito}}
 
     {{#mensajeError}}
-        <div class="alert-message alert-error">
+        <div class="alert alert-error" role="alert">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
             <span>{{mensajeError}}</span>
-            <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
         </div>
     {{/mensajeError}}
 
