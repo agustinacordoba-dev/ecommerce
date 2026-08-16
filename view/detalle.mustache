@@ -59,9 +59,7 @@
             <p class="product-description">{{producto.descripcion}}</p>
 
             <!-- Formulario de Compra (Redirige al checkout / pago) -->
-            <form action="/checkout/pagar" method="POST" class="purchase-form">
-                <input type="hidden" name="productoId" value="{{producto.id}}">
-
+            <form action="/ecommerce/carrito/agregarAlCarrito?id={{producto.id}}" method="POST" class="purchase-form">
                 <!-- Entrada manual de cantidad -->
                 <div class="quantity-selector">
                     <label for="cantidad">Cantidad:</label>
