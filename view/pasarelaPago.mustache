@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - DH Import</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/ecommerce/public/css/style.css">
+    <link rel="stylesheet" href="/ecommerce/public/css/pasarelaPago.css">
+</head>
+<body>
+
+{{>header}}
+
+<main class="checkout-wrapper">
+    <header class="checkout-header">
+        <h1>Finalizar Compra</h1>
+        <p>Completa los detalles para procesar tu pedido</p>
+    </header>
+
+    <form action="/ecommerce/checkout/procesar" method="POST" id="checkout-form" class="checkout-grid">
+
+        <!-- COLUMNA PRINCIPAL DE PASOS -->
+        <div class="steps-container">
+
+            <!-- PASO 1: CLIENTE -->
+            <div class="checkout-step">
+                <div class="step-badge">1</div>
+                <div class="step-content">
+                    <h2 class="step-title">Información de Cuenta</h2>
+                    <div class="client-info-card">
+                        <div class="client-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </div>
+                        <div class="client-details">
+                            <span class="client-label">Código de Cliente</span>
+                            <input type="number" name="codigo_cliente" class="input-cliente" placeholder="Ej: 1024">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 2: METODO DE ENTREGA -->
+            <div class="checkout-step">
+                <div class="step-badge">2</div>
+                <div class="step-content">
+                    <h2 class="step-title">Método de Entrega</h2>
+
+                    <div class="radio-selector">
+                        <label class="radio-tile">
+                            <input type="radio" name="tipo_envio" value="local" checked onclick="toggleEnvio(false)">
+                            <div class="tile-box">
+                                <div class="tile-header">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                                    <strong>Retiro en Local</strong>
+                                </div>
+                                <span class="tile-desc">Gratis • Retiras por sucursal</span>
+                            </div>
+                        </label>
+
+                        <label class="radio-tile">
+                            <input type="radio" name="tipo_envio" value="correo" onclick="toggleEnvio(true)">
+                            <div class="tile-box">
+                                <div class="tile-header">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                    <strong>Envío a Domicilio</strong>
+                                </div>
+                                <span class="tile-desc">A todo el país por correo</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Banner de Retiro en Local -->
+                    <div id="notice-local" class="status-banner">
+                        <div class="banner-icon">💬</div>
+                        <div class="banner-text">
+                            <strong>Preparación de tu pedido:</strong> Te notificaremos por WhatsApp en cuanto tus productos estén armados y listos para retirar.
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Envío -->
+                    <div id="form-correo" class="shipping-box" style="display: none;">
+                        <h3 class="shipping-subtitle">Dirección de Entrega</h3>
+                        <div class="form-row">
+                            <div class="input-field flex-2">
+                                <label for="calle">Calle y Altura *</label>
+                                <input type="text" id="calle" name="calle" placeholder="Ej: Av. Rivadavia 4500">
+                            </div>
+                            <div class="input-field flex-1">
+                                <label for="piso_depto">Piso / Depto</label>
+                                <input type="text" id="piso_depto" name="piso_depto" placeholder="Ej: 3B">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-field flex-1">
+                                <label for="codigo_postal">Código Postal *</label>
+                                <div class="cp-group">
+                                    <input type="text" id="codigo_postal" name="codigo_postal" placeholder="1778">
+                                    <button type="button" class="btn-calc" onclick="cotizarEnvio()">Cotizar</button>
+                                </div>
+                            </div>
+                            <div class="input-field flex-1">
+                                <label for="localidad">Localidad *</label>
+                                <input type="text" id="localidad" name="localidad">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 3: FORMA DE PAGO -->
+            <div class="checkout-step">
+                <div class="step-badge">3</div>
+                <div class="step-content">
+                    <h2 class="step-title">Forma de Pago</h2>
+
+                    <div class="radio-selector">
+                        <label class="radio-tile">
+                            <input type="radio" name="metodo_pago" value="efectivo" checked>
+                            <div class="tile-box">
+                                <div class="tile-header">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+                                    <strong>Efectivo</strong>
+                                </div>
+                                <span class="tile-desc">Abonas al retirar o recibir</span>
+                            </div>
+                        </label>
+
+                        <label class="radio-tile">
+                            <input type="radio" name="metodo_pago" value="mercadopago">
+                            <div class="tile-box">
+                                <div class="tile-header">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                    <strong>Mercado Pago</strong>
+                                </div>
+                                <span class="tile-desc">Tarjetas o saldo en cuenta</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RESUMEN LATERAL (STICKY) -->
+        <aside class="summary-sidebar">
+            <div class="summary-card">
+                <h2 class="summary-heading">Resumen de Compra</h2>
+
+                <div class="summary-line">
+                    <span>Productos</span>
+                    <span>${{totalCarrito}}</span>
+                </div>
+                <div class="summary-line">
+                    <span>Costo de Envío</span>
+                    <span id="label-envio" class="free-text">Gratis</span>
+                </div>
+
+                <hr class="summary-divider">
+
+                <div class="summary-line total-line">
+                    <span>Total Final</span>
+                    <strong id="label-total">${{totalCarrito}}</strong>
+                </div>
+
+                <button type="submit" class="btn-confirm">
+                    Confirmar y Pagar
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
+        </aside>
+
+    </form>
+</main>
+
+<script>
+    const subtotal = parseFloat("{{totalCarrito}}");
+
+    function toggleEnvio(esCorreo) {
+        const noticeLocal = document.getElementById('notice-local');
+        const formCorreo = document.getElementById('form-correo');
+        const labelEnvio = document.getElementById('label-envio');
+        const labelTotal = document.getElementById('label-total');
+
+        if (esCorreo) {
+            noticeLocal.style.display = 'none';
+            formCorreo.style.display = 'block';
+        } else {
+            noticeLocal.style.display = 'flex';
+            formCorreo.style.display = 'none';
+            labelEnvio.innerText = 'Gratis';
+            labelEnvio.className = 'free-text';
+            labelTotal.innerText = '$' + subtotal.toFixed(2);
+        }
+    }
+
+    function cotizarEnvio() {
+        const cp = document.getElementById('codigo_postal').value;
+        if (!cp.trim()) {
+            alert('Por favor ingresa tu código postal');
+            return;
+        }
+
+        const tarifaEnvio = 3500.00;
+        const total = subtotal + tarifaEnvio;
+
+        const labelEnvio = document.getElementById('label-envio');
+        labelEnvio.innerText = '$' + tarifaEnvio.toFixed(2);
+        labelEnvio.className = 'cost-text';
+
+        document.getElementById('label-total').innerText = '$' + total.toFixed(2);
+    }
+</script>
+
+{{>footer}}
+</body>
+</html>

@@ -1,0 +1,343 @@
+@import url('paleta-colores.css');
+
+.checkout-wrapper {
+    max-width: var(--container);
+    margin: 1rem auto;
+    padding: 1rem;
+}
+
+.checkout-header {
+    margin-bottom: 1rem;
+}
+
+.checkout-header h1 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--navy);
+}
+
+.checkout-header p {
+    color: var(--slate);
+    font-size: 0.95rem;
+}
+
+/* Layout Grid */
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 36px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Stepper Cards */
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.checkout-step {
+    display: flex;
+    gap: 16px;
+    background: var(--white);
+    padding: 28px;
+    border-radius: calc(var(--radius) + 4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.step-badge {
+    width: 36px;
+    height: 36px;
+    background-color: var(--navy);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 20px;
+}
+
+/* Paso 1: Datos Cliente */
+.client-info-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--light);
+    padding: 14px 20px;
+    border-radius: var(--radius);
+}
+
+.client-icon {
+    color: var(--blue);
+}
+
+/* Ajuste de contenedor de datos del cliente */
+.client-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.client-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+/* Estilos para el Input del Código de Cliente */
+.input-cliente {
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: calc(var(--radius) - 2px);
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    font-family: var(--font-mono, monospace);
+    color: var(--navy);
+    outline: none;
+    transition: all 0.2s ease;
+    max-width: 200px; /* Tamaño controlado */
+}
+
+.input-cliente:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+/* Ocultar las flechitas por defecto de los inputs tipo number */
+.input-cliente::-webkit-outer-spin-button,
+.input-cliente::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-cliente[type=number] {
+    -moz-appearance: textfield;
+}
+
+.client-value {
+    font-family: var(--font-mono);
+    color: var(--navy);
+    font-size: 1.1rem;
+}
+
+/* Selector Tipo Radio / Cards */
+.radio-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.radio-tile {
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-tile input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.tile-box {
+    border: 2px solid var(--gray);
+    padding: 18px;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+    height: 100%;
+}
+
+.radio-tile input[type="radio"]:checked + .tile-box {
+    border-color: var(--blue);
+    background-color: rgba(var(--blue-rgb, 0, 102, 255), 0.03);
+}
+
+.tile-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--navy);
+    margin-bottom: 6px;
+}
+
+.tile-desc {
+    font-size: 0.82rem;
+    color: var(--slate);
+    display: block;
+}
+
+/* Banners y Cajas de Texto */
+.status-banner {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background-color: #EBF5FF;
+    border: 1px solid #BEDBFE;
+    padding: 16px;
+    border-radius: var(--radius);
+    margin-top: 20px;
+    color: #1E3A8A;
+    font-size: 0.9rem;
+}
+
+.shipping-box {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray);
+}
+
+.shipping-subtitle {
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 16px;
+}
+
+/* Formulario */
+.form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.flex-1 { flex: 1; }
+.flex-2 { flex: 2; }
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+.input-field input {
+    padding: 11px 14px;
+    border: 1px solid var(--gray);
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.input-field input:focus {
+    border-color: var(--blue);
+}
+
+.cp-group {
+    display: flex;
+    gap: 8px;
+}
+
+.cp-group input {
+    flex: 1;
+}
+
+.btn-calc {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 0 16px;
+    border-radius: calc(var(--radius) - 2px);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Resumen Lateral Sticky */
+.summary-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.summary-card {
+    background: var(--white);
+    padding: 28px;
+    border-radius: calc(var(--radius) + 4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.summary-heading {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--navy);
+    margin-bottom: 20px;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    color: var(--slate);
+    font-size: 0.95rem;
+}
+
+.free-text {
+    color: var(--blue);
+    font-weight: 600;
+}
+
+.cost-text {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px dashed var(--gray);
+    margin: 18px 0;
+}
+
+.total-line {
+    color: var(--navy);
+    font-size: 1.15rem;
+    margin-bottom: 24px;
+}
+
+.total-line strong {
+    font-family: var(--font-mono);
+    color: var(--blue);
+    font-size: 1.4rem;
+}
+
+.btn-confirm {
+    width: 100%;
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    padding: 16px;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-confirm:hover {
+    background-color: var(--navy);
+}

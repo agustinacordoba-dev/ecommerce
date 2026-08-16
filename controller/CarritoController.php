@@ -26,9 +26,9 @@ class CarritoController
             session_start();
         }
 
-        $cliente_id  = $_SESSION['id'] ?? null;
+        $cliente_id = $_SESSION['id'] ?? null;
         $producto_id = $this->request->get('id');
-        $cantidad    = $this->request->post('cantidad') ?? 1;
+        $cantidad = $this->request->post('cantidad') ?? 1;
 
         // Control de Sesión
         if (!$cliente_id) {
@@ -89,13 +89,13 @@ class CarritoController
         if (session_status() == PHP_SESSION_NONE)
             session_start();
 
-        $nombre     = $_SESSION['nombre'] ?? "";
-        $apellido   = $_SESSION['apellido'] ?? "";
-        $logueado   = isset($_SESSION['id']);
+        $nombre = $_SESSION['nombre'] ?? "";
+        $apellido = $_SESSION['apellido'] ?? "";
+        $logueado = isset($_SESSION['id']);
         $cliente_id = $_SESSION['id'] ?? "";
 
         $carritoActivo = $this->carritoModel->buscarCarritosActivos($cliente_id);
-        $categorias    = $this->categoriaModel->obtenerCategorias();
+        $categorias = $this->categoriaModel->obtenerCategorias();
 
         $productos = [];
         $totalCarrito = 0;
@@ -118,12 +118,12 @@ class CarritoController
 
     public function eliminarProducto()
     {
-      if (session_status() == PHP_SESSION_NONE)
+        if (session_status() == PHP_SESSION_NONE)
             session_start();
 
         $cliente_id = $_SESSION['id'] ?? null;
 
-        $carrito_id  = $this->carritoModel->buscarCarritosActivos($cliente_id)[0]['id'];
+        $carrito_id = $this->carritoModel->buscarCarritosActivos($cliente_id)[0]['id'];
         $producto_id = $this->request->get('id');
 
         $eliminado = $this->carritoProductModel->eliminarProductoDelCarrito($carrito_id, $producto_id);
@@ -135,5 +135,49 @@ class CarritoController
 
         header('Location: ?controller=carrito&method=verCarrito');
         exit;
+    }
+
+    public function actualizarCantidadProducto()
+    {
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+
+        $cliente_id  = $_SESSION['id'] ?? null;
+        $producto_id = $this->request->get('id');
+        $cantidad    = $this->request->post('cantidad');
+        $carrito_id  = $this->carritoModel->buscarCarritosActivos($cliente_id)[0]['id'];
+
+        $actualizado = $this->carritoProductModel->actualizarCantidadProducto($carrito_id, $producto_id, $cantidad);
+
+        if ($actualizado)
+            Log::info('CarritoController::actualizarCantidadProducto - Producto actualizado correctamente');
+        else
+            Log::error('CarritoController::actualizarCantidadProducto - Error el producto no pudo ser actualizado');
+
+        header('Location: ?controller=carrito&method=verCarrito');
+        exit;
+    }
+
+    public function pasarelaPago()
+    {
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+
+        $cliente_id   = $_SESSION['id'] ?? null;
+        $nombre       = $_SESSION['nombre'] ?? "";
+        $apellido     = $_SESSION['apellido'] ?? "";
+        $logueado     = isset($_SESSION['id']);
+
+        $carrito_id   = $this->carritoModel->buscarCarritosActivos($cliente_id)[0]['id'];
+        $productos    = $this->carritoProductModel->obtenerProductos($carrito_id);
+        $categorias   = $this->categoriaModel->obtenerCategorias();
+        $totalCarrito = 0;
+
+        foreach ($productos as $p)
+            $totalCarrito += $p['subtotal'];
+
+        $this->renderer->render('pasarelaPago', ['cliente_id' => $cliente_id, 'categorias' => $categorias,
+            'nombre' => $nombre, 'apellido' => $apellido, 'logueado' => $logueado,
+            'totalCarrito' => number_format($totalCarrito, 2, '.', '')]);
     }
 }
