@@ -6,6 +6,82 @@
     padding: 0;
 }
 
+/* Controles de Cantidad Editable */
+.quantity-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity-controls {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--light);
+    border: 1px solid var(--gray);
+    border-radius: 20px;
+    padding: 2px 4px;
+}
+
+.btn-qty {
+    background: transparent;
+    border: none;
+    color: var(--navy);
+    font-weight: bold;
+    font-size: 1rem;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-qty:hover {
+    background-color: var(--gray);
+}
+
+.quantity-input {
+    width: 36px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--navy);
+    font-family: inherit;
+}
+
+/* Ocultar flechas por defecto en navegadores */
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.quantity-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.btn-save-qty {
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 2px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-save-qty:hover {
+    background-color: var(--navy);
+}
+
 /* 1. Ajuste general del Body */
 body {
     font-family: var(--font-body);

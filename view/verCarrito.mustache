@@ -44,11 +44,22 @@
                             </td>
                             <td class="unit-price">${{precio_unitario}}</td>
                             <td style="text-align: center;">
-                                <span class="quantity-badge">{{cantidad}}</span>
+                                <form action="/ecommerce/carrito/actualizarCantidadProducto?id={{producto_id}}" method="POST" class="quantity-form">
+                                    <div class="quantity-controls">
+                                        <button type="button" class="btn-qty" onclick="if(this.nextElementSibling.value > 1) this.nextElementSibling.value--;">-</button>
+                                        <input type="number" name="cantidad" value="{{cantidad}}" min="1" class="quantity-input" required>
+                                        <button type="button" class="btn-qty" onclick="this.previousElementSibling.value++">+</button>
+                                        <button type="submit" class="btn-save-qty" title="Guardar cantidad" aria-label="Guardar cantidad">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </form>
+
                             </td>
                             <td class="subtotal-price">${{subtotal}}</td>
                             <td style="text-align: right;">
-                                <!-- Formulario opcional para eliminar el ítem -->
                                 <form action="/ecommerce/carrito/eliminarProducto?id={{producto_id}}" method="POST">
                                     <button type="submit" class="btn-remove" aria-label="Eliminar producto" title="Eliminar">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -77,11 +88,10 @@
                 </div>
                 <div class="summary-row total">
                     <span>Total</span>
-                    <!-- Puedes pasar la suma total calculada desde PHP -->
                     <span class="total-amount">${{totalCarrito}}</span>
                 </div>
 
-                <a href="#" class="btn-checkout">Finalizar Compra</a>
+                <a href="/ecommerce/carrito/pasarelaPago" class="btn-checkout">Finalizar Compra</a>
             </aside>
         </div>
     {{/productos.0}}
