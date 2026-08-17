@@ -135,18 +135,24 @@ body {
     padding-right: 24px;
 }
 
+/* Contenedor principal alineado a Productos Filtrados */
 .cart-container {
     max-width: var(--container);
-    margin: 0 auto;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
 }
 
+/* Header del Carrito consistente */
 .cart-title {
     font-family: var(--font-display);
     font-size: 2rem;
+    font-weight: 700;
     color: var(--navy);
-    margin-bottom: 24px;
+    margin: 0 0 2rem 0;
     display: flex;
     align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray);
     gap: 12px;
 }
 
