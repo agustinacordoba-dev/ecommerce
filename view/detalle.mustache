@@ -8,8 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/ecommerce/public/css/style.css">
     <link rel="stylesheet" href="/ecommerce/public/css/detalle.css">
-    <!-- Iconos Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
@@ -74,7 +72,7 @@
 
             <!-- Leyenda de Envíos -->
             <div class="shipping-info">
-                <i data-lucide="truck"></i>
+                <svg class="shipping-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
                 <span>Envíos a todo el país</span>
             </div>
 
@@ -82,8 +80,6 @@
     </section>
 </main>
 {{>footer}}
-<script>
-    lucide.createIcons();
-</script>
+<script src="/ecommerce/public/js/menu.js"></script>
 </body>
 </html>

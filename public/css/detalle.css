@@ -235,6 +235,20 @@
     flex-shrink: 0;
 }
 
+.shipping-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--navy);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.shipping-icon {
+    stroke: var(--blue); /* Toma el azul de tu paleta */
+    flex-shrink: 0;
+}
+
 /* Responsivo para pantallas pequeñas */
 @media (max-width: 768px) {
     .product-detail-card {
